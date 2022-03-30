@@ -15,7 +15,7 @@ module Api
             if project.update(project_params)
               render json: {data: data(project)}
             else
-              render json: {data: project.errors}, status: :unprocessable_entity 
+              render json: {data: project.errors}, status: :unprocessable_entity
             end
 
         end
@@ -26,7 +26,8 @@ module Api
         end
 
         def read_all
-            render json: {status: "success"}
+          project_all = Project.all
+          render json: {data: data_many(project_all)}
         end
 
         def read_my_projects
@@ -45,6 +46,15 @@ module Api
           }
         return data 
         end
+        
+        def data_many (project_many)
+          data_many = []
+          for project in project_many
+            data_many.append(data(project))
+          end
+          return data_many
+        end
+          
 
         def project_params
           params.require(:project).permit(:title, :project_type, :location, :thumbnail, :user_id, :description)
