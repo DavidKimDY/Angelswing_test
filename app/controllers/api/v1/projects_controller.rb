@@ -2,11 +2,11 @@ module Api
   module V1
     class ProjectsController < ApplicationController
         def create
-          @project = Project.new(project_params)
-          if @project.save
-            render json: {data: data(@project)}, status: :ok
+          project = Project.new(project_params)
+          if project.save
+            render json: {data: data(project)}, status: :ok
           else
-            render json: {data: @project.errors}, status: :unprocessable_entity 
+            render json: {data: project.errors}, status: :unprocessable_entity 
           end
         end
 
