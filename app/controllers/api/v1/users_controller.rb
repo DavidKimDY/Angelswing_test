@@ -1,16 +1,12 @@
 module Api
   module V1
     class UsersController < ApplicationController
-        def create
+        def signin
+            render json: {status: "success"}
         end
-
-        def update
-        end
-
-        def read
-        end
-
-        def delete
+    
+        def signup
+            render json: {status: "success"}
         end
       end
   end
