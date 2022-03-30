@@ -40,7 +40,7 @@ module Api
         end
 
         def project_params
-          params.require(:project).permit(:title, :project_type, :location, :thumbnail, :user_id)
+          params.require(:project).permit(:title, :project_type, :location, :thumbnail, :user_id, :description)
         end
 
       end
