@@ -34,6 +34,9 @@ module Api
       end
 
       def delete
+        project = Project.find(params[:id])
+        project.destroy
+        render json: {message: "Deleted"}
       end
 
       private
