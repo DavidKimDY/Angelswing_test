@@ -27,7 +27,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_03_29_100307) do
     t.integer "user_id"
     t.string "title"
     t.text "description"
-    t.integer "type"
+    t.integer "project_type"
     t.string "location"
     t.string "thumbnail"
     t.datetime "created_at", null: false
