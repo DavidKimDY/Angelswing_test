@@ -36,7 +36,9 @@ module Api
         end
 
         def delete
-          render json: {status: "Success"}
+          content = Content.find(params[:id])
+          content.destroy
+          render json: {message: "Deleted"}
         end
 
         private
@@ -60,16 +62,13 @@ module Api
           return data
         end
       
-      def data_many (content_many)
-        data_many = []
-        for content in content_many
-          data_many.append(data(content))
+        def data_many (content_many)
+          data_many = []
+          for content in content_many
+            data_many.append(data(content))
+          end
+          return data_many
         end
-        return data_many
-      end
-        
-
-
       end
   end
 end
