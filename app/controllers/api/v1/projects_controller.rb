@@ -11,6 +11,13 @@ module Api
         end
 
         def update
+            project = Project.find(params[:id])
+            if project.update(project_params)
+              render json: {data: data(project)}
+            else
+              render json: {data: project.errors}, status: :unprocessable_entity 
+            end
+
         end
 
         def read
