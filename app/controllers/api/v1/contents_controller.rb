@@ -22,7 +22,10 @@ module Api
         end
 
         def read
-          render json: {status: "Success"}
+          # GET Specific Content
+          project = Project.find(params[:project_id])
+          content = project.contents.find(params[:id])
+          render json: {data: data(content)}
         end
         
         def read_all_in_project
