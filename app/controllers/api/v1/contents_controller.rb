@@ -13,7 +13,12 @@ module Api
         end
 
         def update
-          render json: {status: "Success"}
+          content = Content.find(params[:id])
+          if content.update(content_params)
+            render json: {data: data(content)}
+          else
+            render json: {data: content.errors}, status: :unprocessable_entity
+          end
         end
 
         def read
