@@ -29,7 +29,10 @@ module Api
         end
         
         def read_all_in_project
-          render json: {status: "Success"}
+          # Get Contents
+          project = Project.find(params[:project_id])
+          content_all = project.contents
+          render json: {data: data_many(content_all)}
         end
 
         def delete
@@ -56,6 +59,16 @@ module Api
           }
           return data
         end
+      
+      def data_many (content_many)
+        data_many = []
+        for content in content_many
+          data_many.append(data(content))
+        end
+        return data_many
+      end
+        
+
 
       end
   end
