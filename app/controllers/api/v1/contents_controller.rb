@@ -1,11 +1,14 @@
 module Api
   module V1
     class ContentsController < ApplicationController
+      before_action :authorized
       def create
         project = Project.find(params[:project_id])
         content = Content.new(content_params)
-        content.update(project_id: project.id, user_id: project.user.id)
-        if content.save
+        content.update(project_id: project.id, user_id: @user.id)
+        if project.user.id != @user.id
+          render json: {error: "Unauthorized"}, status: :unauthorized
+        elsif content.save
           render json: {data: data(content)}, status: :ok
         else
           render json: {error: content.errors}, status: :unprocessable_entity 
@@ -14,7 +17,9 @@ module Api
 
       def update
         content = Content.find(params[:id])
-        if content.update(content_params)
+        if content.user.id != @user.id
+          render json: {error: "Unauthorized"}, status: :unauthorized
+        elsif content.update(content_params)
           render json: {data: data(content)}
         else
           render json: {error: content.errors}, status: :unprocessable_entity
@@ -37,8 +42,12 @@ module Api
 
       def delete
         content = Content.find(params[:id])
-        content.destroy
-        render json: {message: "Deleted"}
+        if content.user.id != @user.id
+          render json: {error: "Unauthorized"}, status: :unauthorized
+        else
+          content.destroy
+          render json: {message: "Deleted"}
+        end
       end
 
       private
