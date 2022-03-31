@@ -4,6 +4,7 @@ module Api
       before_action :authorized, only: [:create, :update, :delete, :read_my_projects]
       def create
         project = Project.new(project_params)
+        project.user_id = @user.id
         if project.save
           render json: {data: data(project)}, status: :ok
         else
@@ -45,7 +46,7 @@ module Api
         data = {
           id: project.id,
           type: "project",
-          attributes: project.attributes.except('id')
+          attributes: project.attributes.except('id', 'user_id')
         }
       return data 
       end
@@ -60,7 +61,7 @@ module Api
         
 
       def project_params
-        params.require(:project).permit(:title, :project_type, :location, :thumbnail, :user_id, :description)
+        params.require(:project).permit(:title, :project_type, :location, :thumbnail, :description)
       end
 
       end
