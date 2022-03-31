@@ -1,6 +1,7 @@
 module Api
   module V1
     class ProjectsController < ApplicationController
+      before_action :authorized, only: [:create, :update, :delete, :read_my_projects]
       def create
         project = Project.new(project_params)
         if project.save
@@ -30,7 +31,6 @@ module Api
       end
 
       def read_my_projects
-        render json: {status: "success"}
       end
 
       def delete
