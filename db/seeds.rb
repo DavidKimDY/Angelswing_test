@@ -9,7 +9,7 @@
 User.destroy_all
 Project.destroy_all
 
-kim = User.create(first_name: 'Gildong', last_name: 'Kim', email: "kim@gmail.com")
+kim = User.create(first_name: 'Gildong', last_name: 'Kim', email: "kim@gmail.com", password: "123123")
 project_1 = Project.create(title: 'Seoul Downtown', user_id: kim.id)
 project_2 = Project.create(title: 'Daegu Downtown', user_id: kim.id)
 content_1 = Content.create(title: 'Building', project_id: project_1.id, user_id: project_1.user.id)
