@@ -32,7 +32,6 @@ module Api
 
       def read_my_projects
         render json: {data: data_many(@user.projects)}
-        #render json: {data: "login"}
       end
 
       def delete
