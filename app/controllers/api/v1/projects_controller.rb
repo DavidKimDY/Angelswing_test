@@ -8,16 +8,18 @@ module Api
         if project.save
           render json: {data: data(project)}, status: :ok
         else
-          render json: {data: project.errors}, status: :unprocessable_entity 
+          render json: {error: project.errors}, status: :unprocessable_entity 
         end
       end
 
       def update
         project = Project.find(params[:id])
-        if project.update(project_params)
+        if project.user.id != @user.id
+          render json: {error: "Unauthorized"}, status: :unauthorized
+        elsif project.update(project_params)
           render json: {data: data(project)}
         else
-          render json: {data: project.errors}, status: :unprocessable_entity
+          render json: {error: project.errors}, status: :unprocessable_entity
         end
       end
 
@@ -37,8 +39,12 @@ module Api
 
       def delete
         project = Project.find(params[:id])
-        project.destroy
-        render json: {message: "Deleted"}
+        if project.user.id != @user.id
+          render json: {error: "Unauthorized"}, status: :unauthorized
+        else
+          project.destroy
+          render json: {message: "Deleted"}
+        end
       end
 
       private
@@ -63,7 +69,6 @@ module Api
       def project_params
         params.require(:project).permit(:title, :project_type, :location, :thumbnail, :description)
       end
-
-      end
+    end
   end
 end
