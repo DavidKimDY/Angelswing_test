@@ -14,9 +14,9 @@ module Api
     
       def signup
         @user = User.new(user_params)
+        @user.first_name = params[:firstName]
+        @user.last_name = params[:lastName]
         if @user.valid?
-          @user.first_name = params[:firstName]
-          @user.last_name = params[:lastName]
           @user.save
           render json: {data: data}
         else
