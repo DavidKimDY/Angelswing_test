@@ -5,9 +5,9 @@ Rails.application.routes.draw do
       post '/auth/signin' => 'users#signin'
       
       post '/projects' => 'projects#create'
+      get '/projects/my_projects' => 'projects#read_my_projects'
       get '/projects/:id' => 'projects#read'
       get '/projects' => 'projects#read_all'
-      get '/projects/my_projects' => 'projects#read_my_projects'
       put '/projects/:id' => 'projects#update'
       delete '/projects/:id' => 'projects#delete'
 
