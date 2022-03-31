@@ -5,7 +5,6 @@ module Api
 
       def signin
         @user = User.find_by(email: params[:auth][:email])
-        puts @user
         if @user && @user.authenticate(params[:auth][:password])
           render json: {data: data}
         else
@@ -14,12 +13,14 @@ module Api
       end
     
       def signup
-        @user = User.create(user_params)
+        @user = User.new(user_params)
         if @user.valid?
-          token = encode_token({user_id: @user.id})
-          render json: {user: @user, token: token}
+          @user.first_name = params[:firstName]
+          @user.last_name = params[:lastName]
+          @user.save
+          render json: {data: data}
         else
-          render json: {error: "Invalid username or password"}
+          render json: {error: @user.errors}
         end
       end
 
@@ -30,7 +31,7 @@ module Api
       private
 
       def user_params
-        params.permit(:firstName, :lastName, :email, :password, :country)
+        params.permit(:firstName, :lastName, :email, :password, :country, :user)
       end
 
       def data
