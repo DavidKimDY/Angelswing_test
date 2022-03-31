@@ -8,7 +8,7 @@ module Api
         if content.save
           render json: {data: data(content)}, status: :ok
         else
-          render json: {data: content.errors}, status: :unprocessable_entity 
+          render json: {error: content.errors}, status: :unprocessable_entity 
         end
       end
 
@@ -17,7 +17,7 @@ module Api
         if content.update(content_params)
           render json: {data: data(content)}
         else
-          render json: {data: content.errors}, status: :unprocessable_entity
+          render json: {error: content.errors}, status: :unprocessable_entity
         end
       end
 
