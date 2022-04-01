@@ -30,3 +30,7 @@
 
 # Ignore vim temp file
 *.swp
+
+# Ignore Env file
+/config/application.yml
+

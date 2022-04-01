@@ -4,9 +4,6 @@ module Api
       before_action :authorized, only: [:create, :update, :delete, :read_my_projects]
       def create
         project = Project.new(project_params)
-        project.user_id = @user.id
-        type_to_project_type = {"in_house" =>0, "external" => 1, "international" => 2} 
-        project.project_type = type_to_project_type[params[:type]]
         if project.valid?
           project.save
           render json: {data: data(project)}, status: :ok
@@ -58,7 +55,7 @@ module Api
           type: "project",
           attributes: {
             "title": project.title, 
-            "thumbnail": project.thumbnail,
+            "thumbnail": project.thumbnail.url,
             "location": project.location,
             "type" => project_type_to_type[project.project_type], 
             "createdAt": project.created_at,
@@ -78,7 +75,11 @@ module Api
         
 
       def project_params
-        params.require(:project).permit(:title, :type, :location, :thumbnail, :description)
+        type_to_project_type = {"in_house" =>0, "external" => 1, "international" => 2} 
+        params[:user_id] = @user.id
+        params[:project_type] = type_to_project_type[params[:type]]
+        params[:type] = nil
+        params.permit(:title, :user_id, :project_type, :location, :thumbnail, :description)
       end
     end
   end
