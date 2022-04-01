@@ -34,3 +34,5 @@
 # Ignore Env file
 /config/application.yml
 
+# Image upload path
+/public/uploads
