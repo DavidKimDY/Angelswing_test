@@ -8,7 +8,7 @@ module Api
         if @user && @user.authenticate(params[:auth][:password])
           render json: {data: data}
         else
-          render json: {error: "Invalid username or password"}
+          render json: {error: "Invalid username or password"}, status: :unprocessable_entity
         end
       end
     
@@ -20,7 +20,8 @@ module Api
           @user.save
           render json: {data: data}
         else
-          render json: {error: @user.errors}
+          render json: {error: @user.errors}, status: :unprocessable_entity
+
         end
       end
 
