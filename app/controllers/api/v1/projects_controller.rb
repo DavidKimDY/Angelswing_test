@@ -57,7 +57,9 @@ module Api
             "title": project.title, 
             "thumbnail": project.thumbnail.url,
             "location": project.location,
+            "description": project.description,
             "type" => project_type_to_type[project.project_type], 
+            "ownerName": project.user.last_name + " " + project.user.first_name,
             "createdAt": project.created_at,
             "updatedAt": project.updated_at
           }
@@ -77,7 +79,9 @@ module Api
       def project_params
         type_to_project_type = {"in_house" =>0, "external" => 1, "international" => 2} 
         params[:user_id] = @user.id
-        params[:project_type] = type_to_project_type[params[:type]]
+        if params[:type]
+          params[:project_type] = type_to_project_type[params[:type]]
+        end
         params[:type] = nil
         params.permit(:title, :user_id, :project_type, :location, :thumbnail, :description)
       end
