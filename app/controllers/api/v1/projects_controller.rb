@@ -7,7 +7,8 @@ module Api
         project.user_id = @user.id
         type_to_project_type = {"in_house" =>0, "external" => 1, "international" => 2} 
         project.project_type = type_to_project_type[params[:type]]
-        if project.save
+        if project.valid?
+          project.save
           render json: {data: data(project)}, status: :ok
         else
           render json: {error: project.errors}, status: :unprocessable_entity 
