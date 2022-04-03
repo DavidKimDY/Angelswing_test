@@ -42,7 +42,7 @@ module Api
           attributes: {
             token: encode_token({user_id: @user.id}),
             email: @user.email,
-            name: @user.last_name + " " + @user.first_name,
+            name: @user.first_name + " " + @user.last_name,
             country: @user.country,
             createdAt: @user.created_at,
             updatedAt: @user.updated_at
