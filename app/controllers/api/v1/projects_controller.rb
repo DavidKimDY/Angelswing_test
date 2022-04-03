@@ -59,7 +59,7 @@ module Api
             "location": project.location,
             "description": project.description,
             "type" => project_type_to_type[project.project_type], 
-            "ownerName": project.user.last_name + " " + project.user.first_name,
+            "ownerName": project.user.first_name + " " + project.user.last_name,
             "createdAt": project.created_at,
             "updatedAt": project.updated_at
           }
