@@ -21,7 +21,7 @@ RSpec.describe User, type: :request do
         parsed_response = JSON.parse(response.body)
         token = parsed_response['data']["attributes"]["token"]
         user_id = parsed_response['data']['id']
-        decoded_user_id = JWT.decode(token, 'yourSecret', true, algorithm: "HS256")[0]["user_id"]
+        decoded_user_id = JWT.decode(token, ENV["JWT_SECRET"], true, algorithm: "HS256")[0]["user_id"]
         expect(decoded_user_id).to eq(user_id)
       end
 
@@ -62,7 +62,7 @@ RSpec.describe User, type: :request do
         parsed_response = JSON.parse(response.body)
         token = parsed_response['data']["attributes"]["token"]
         user_id = parsed_response['data']['id']
-        decoded_user_id = JWT.decode(token, 'yourSecret', true, algorithm: "HS256")[0]["user_id"]
+        decoded_user_id = JWT.decode(token, ENV["JWT_SECRET"], true, algorithm: "HS256")[0]["user_id"]
         expect(decoded_user_id).to eq(user_id)
       end
 
