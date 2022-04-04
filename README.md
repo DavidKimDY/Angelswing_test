@@ -12,12 +12,17 @@
 4. rails db:create
 5. rails db:migrate
 6. put application.yml into config
-7. rails db:seed
+7. rails db:seed  
+
+## Run server
+- rails s
 
 ## TEST Setup
 1. rails db:migrate RAILS_ENV=test
 2. rails db:seed RAILS_ENV=test
-3. rspec spec
+
+## Test
+- rspec spec
 
 ## application.yml
 - this file has private enviromental variables like AWS S3 account, JWT secret. I will send this file to aayush@angelswing.io, yogi@angelswing.io
