@@ -61,7 +61,7 @@ module Api
           type: "content",
           attributes: {
             "projectId": content.project.id,
-            "projectOwnerName": content.project.user.last_name + " " + content.project.user.first_name,
+            "projectOwnerName": content.project.user.first_name + " " + content.project.user.last_name,
             "title": content.title, 
             "body": content.body,
             "createdAt": content.created_at,
